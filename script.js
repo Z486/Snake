@@ -1,10 +1,6 @@
 // take snakeStart and link to event that is fired after keys are pressed
 // take snakeFood and randomly place within outline
 
-// todo: get both elements by id(or another method)
-// apply appropriate methods to event listeners
-// add logic to keep circles within outline
-// end game if snakeStart hits outline
 // keep snakeStart in motion after first key pressed
 // add 1 to snake start after snakestart collides with snakeFood
 //i want snakestart to recieve food (use this???)
@@ -15,8 +11,8 @@ var play = canvas.getContext("2d");
 var xAxis = canvas.width/2;
 var yAxis = canvas.height/2;
 
-var smallValuex = 2;
-var smallValuey = -2;
+var smallValuex = 1;
+var smallValuey = -1;
 
 var ballRadius = 10;
 
@@ -25,32 +21,32 @@ var leftPressed = false
 var upPressed = false
 var downPressed = false
 
-// document.addEventListener("keydown", keydownHandler, false);
-// document.addEventListener("keyup", keyupHandler, false);
+document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("keyup", keyUpHandler, false);
 
-// function keyDownHandler(event){
-// 	if(event.key == "Right" || event.key == "ArrowRight"){
-// 		rightPressed = true;}
-// 	else if(event.key == "Left" || event.key == "ArrowLeft"){
-// 		leftPressed = true;}
-// 	else if(event.key == "Up" || event.key == "ArrowUp"){
-// 		upPressed == true;}
-// 	else if(event.key == "Down" || event.key == "ArrowDown"){
-// 		downPressed == true;
-// 	}
-// }
+function keyDownHandler(event){
+	if(event.key == "Right" || event.key == "ArrowRight"){
+		rightPressed = true;}
+	else if(event.key == "Left" || event.key == "ArrowLeft"){
+		leftPressed = true;}
+	else if(event.key == "Up" || event.key == "ArrowUp"){
+		upPressed = true;}
+	else if(event.key == "Down" || event.key == "ArrowDown"){
+		downPressed = true;
+	}
+}
 
-// function keyUpHandler(event){
-// 	if(event.key == "Right" || event.key == "ArrowRight"){
-// 		rightPressed = false;}
-// 	else if(event.key == "Left" || event.key == "ArrowLeft"){
-// 		leftPressed = false;}
-// 	else if(event.key == "Up" || event.key == "ArrowUp"){
-// 		upPressed == false;}
-// 	else if(event.key == "Down" || event.key == "ArrowDown"){
-// 		downPressed == false;
-// 	}
-// }
+function keyUpHandler(event){
+	if(event.key == "Right" || event.key == "ArrowRight"){
+		rightPressed = false;}
+	else if(event.key == "Left" || event.key == "ArrowLeft"){
+		leftPressed = false;}
+	else if(event.key == "Up" || event.key == "ArrowUp"){
+		upPressed == false;}
+	else if(event.key == "Down" || event.key == "ArrowDown"){
+		downPressed == false;
+	}
+}
 
 function drawSnakeStart(){
 	//draws snake
@@ -73,24 +69,22 @@ if (xAxis + smallValuex < ballRadius || xAxis + smallValuex > canvas.width-ballR
 if (yAxis + smallValuey < ballRadius || yAxis + smallValuey > canvas.height-ballRadius){
 	alert("Game Over")
 }
-// if(rightPressed){
-// 	ballRadius += 7;
-// }
-// else if(leftPressed){
-// 	ballRadius -= 7;
-// }
-// else if(upPressed){
-// 	ballRadius += 7;
-// }
-// else if(downPressed){
-// 	ballRadius -=7
-// }
-xAxis += smallValuex;
-yAxis += smallValuey;
-move()
+if(rightPressed){
+	xAxis += 3;
+}
+else if(leftPressed){
+	xAxis -= 3;
+}
+else if(upPressed){
+	yAxis -= 3;
+}
+else if(downPressed){
+	yAxis += 3;
+}
+// xAxis += smallValuex;
+// yAxis += smallValuey;
 }
 //function called every ms forever
-// function move {
-// if (rightPressed || leftPressed || upPressed || downPressed){
-// setInterval(draw, 10);}}
+setInterval(draw, 10);
+
 
