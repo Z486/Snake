@@ -30,6 +30,11 @@ var foodHeight = 20;
 
 var food = [];
 
+var pasteRandomFood = {
+	x:0
+	
+}
+
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
@@ -77,11 +82,15 @@ play.closePath();
 }
 
 
-
+//when snake collides with food, food disappears
 function collide(){
 	if (xAxis > x && xAxis < x+foodWidth && yAxis >y && yAxis <y+foodHeight){
 		foodWidth = 0;
 	} 
+}
+
+function distribute{
+var paste = [pasteRandomFood]
 }
 //clears game board after each circle is printed
 
