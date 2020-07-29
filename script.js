@@ -15,16 +15,21 @@ var smallValuex = 1;
 var smallValuey = -1;
 
 var ballRadius = 10;
+var foodRadius = 10;
 
-var rightPressed = false
-var leftPressed = false
-var upPressed = false
-var downPressed = false
+var rightPressed = false;
+var leftPressed = false;
+var upPressed = false;
+var downPressed = false;
 
-var x = canvas.width-300
-var y = canvas.height-30
+var x = canvas.width-300;
+var y = canvas.height-30;
+
+var foodWidth = 20;
+var foodHeight = 20;
 
 var food = [];
+
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
@@ -63,28 +68,31 @@ play.closePath();
 }
 
 function drawFood(){
-	//draws snake
+	//draws food
 play.beginPath();
-play.arc (x, y, 10, 0, Math.PI*2);
+play.rect (x, y, foodWidth, foodHeight);
 play.fillStyle = "orange";
 play.fill();
 play.closePath();
 }
 
 
+
 function collide(){
-	var xy = food[x][y];
-	if (x > xy.xAxis && x < xy.Axis+ballRadius && y > xy.yAxis && y < xy.yAxis+ballRadius){
-		canvas.delete(drawSnakeStart());
-	}
+	if (xAxis > x && xAxis < x+foodWidth && yAxis >y && yAxis <y+foodHeight){
+		foodWidth = 0;
+	} 
 }
 //clears game board after each circle is printed
-//how is this function continuously called without a for loop
+
+var firstRightPressed = false;
+
 function draw(){
 play.clearRect(0, 0, canvas.width, canvas.height);
 drawSnakeStart();
 drawFood();
 collide();
+
 if (xAxis + smallValuex < ballRadius || xAxis + smallValuex > canvas.width-ballRadius){
 	alert("Game Over")
 }
@@ -92,11 +100,16 @@ if (yAxis + smallValuey < ballRadius || yAxis + smallValuey > canvas.height-ball
 	alert("Game Over")
 }
 if(rightPressed){
+	for(let i = 0; i>canvas.width; i++){
+		xAxis += 3;
+	}
 	xAxis +=3;
 }
+
 else if(leftPressed){
-	xAxis -= 3;
+	xAxis -=3;
 }
+
 else if(upPressed){
 	yAxis -= 3;
 }
