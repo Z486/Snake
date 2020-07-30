@@ -11,6 +11,8 @@ var play = canvas.getContext("2d");
 var xAxis = canvas.width/2;
 var yAxis = canvas.height/2;
 
+
+
 var smallValuex = 1;
 var smallValuey = -1;
 
@@ -27,8 +29,7 @@ var y = 300;
 var foodWidth = 20;
 var foodHeight = 20;
 
-xBody = xAxis + 11;
-yBody = yAxis - 11;
+
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 
@@ -63,8 +64,8 @@ play.arc (xAxis, yAxis, ballRadius, 0, Math.PI*2);
 play.fillStyle = "red";
 play.fill();
 play.closePath();
+drawBody();
 }
-
 function drawFood(){
 	//draws food
 play.beginPath();
@@ -74,24 +75,34 @@ play.fill();
 play.closePath();
 }
 
+let xxAxis = canvas.width/2
+let yyAxis = 500
 
-function drawSnakeBody(){
+function drawBody(){
+	//draws body
 play.beginPath();
-play.rect (xBody, yBody, foodWidth, foodHeight);
+play.rect (xxAxis, yyAxis, foodWidth, foodHeight);
 play.fillStyle = "orange";
 play.fill();
 play.closePath();
 }
 
+function chgCoor(){
+ xxAxis = xAxis + 11;
+ yyAxis = yAxis - 11;
+}
+
 //when snake collides with food, food disappears
 function collide(){
+	drawSnakeStart();
 	if (xAxis > x && xAxis < x+foodWidth && yAxis >y && yAxis <y+foodHeight){
 		foodWidth = 0;
 		randomFood();
 		foodWidth = 21;
-		drawSnakeBody();
+		chgCoor();
 }
 }
+
 //randomly prints food to the screen!!
 function randomFood(){
 	
@@ -104,7 +115,7 @@ function randomFood(){
 var firstRightPressed = false;
 function draw(){
 play.clearRect(0, 0, canvas.width, canvas.height);
-drawSnakeStart();
+
 drawFood();
 collide();
 
@@ -117,17 +128,21 @@ if (yAxis + smallValuey < ballRadius || yAxis + smallValuey > canvas.height-ball
 }
 if(rightPressed){
 	xAxis +=3;
+	xxAxis +=3;
 }
 
 else if(leftPressed){
 	xAxis -=3;
+	xxAxis -=3;
 }
 
 else if(upPressed){
 	yAxis -= 3;
+	yyAxis -=3;
 }
 else if(downPressed){
 	yAxis += 3;
+	yyAxis += 3;
 }
 }
 
