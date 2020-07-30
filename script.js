@@ -21,12 +21,14 @@ var leftPressed = false;
 var upPressed = false;
 var downPressed = false;
 
-var x = 300
-var y = 300
+var x = 300;
+var y = 300;
 
 var foodWidth = 20;
 var foodHeight = 20;
 
+xBody = xAxis + 11;
+yBody = yAxis - 11;
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 
@@ -72,9 +74,10 @@ play.fill();
 play.closePath();
 }
 
+
 function drawSnakeBody(){
 play.beginPath();
-play.rect (xAxis + 11, yAxis - 11, foodWidth, foodHeight);
+play.rect (xBody, yBody, foodWidth, foodHeight);
 play.fillStyle = "orange";
 play.fill();
 play.closePath();
@@ -86,7 +89,7 @@ function collide(){
 		foodWidth = 0;
 		randomFood();
 		foodWidth = 21;
-		setInterval(drawSnakeBody, 3);
+		drawSnakeBody();
 }
 }
 //randomly prints food to the screen!!
