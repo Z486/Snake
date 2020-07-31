@@ -29,9 +29,13 @@ var y = 300;
 var foodWidth = 20;
 var foodHeight = 20;
 
+var width = 20;
+var height = 20;
+
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
+
 
 function keyDownHandler(event){
 	if(event.key == "Right" || event.key == "ArrowRight"){
@@ -57,15 +61,6 @@ function keyUpHandler(event){
 	}
 }
 
-function drawSnakeStart(){
-	//draws snake
-play.beginPath();
-play.arc (xAxis, yAxis, ballRadius, 0, Math.PI*2);
-play.fillStyle = "red";
-play.fill();
-play.closePath();
-drawBody();
-}
 function drawFood(){
 	//draws food
 play.beginPath();
@@ -75,31 +70,30 @@ play.fill();
 play.closePath();
 }
 
-let xxAxis = canvas.width/2
-let yyAxis = 500
+
+
+var body = [];
+body[0] = {x: xAxis, y: yAxis};
+let bodyX = body[0].x;
+let bodyY = body[0].y;
+
+body.pop();
 
 function drawBody(){
-	//draws body
-play.beginPath();
-play.rect (xxAxis, yyAxis, foodWidth, foodHeight);
-play.fillStyle = "orange";
-play.fill();
-play.closePath();
+	for(let i = 0; i<body.length; i++){
+    play.fillStyle = "red";
+    play.fillRect(body[i].x, body[i].y, width, height);
+}
 }
 
-function chgCoor(){
- xxAxis = xAxis + 11;
- yyAxis = yAxis - 11;
-}
+
 
 //when snake collides with food, food disappears
 function collide(){
-	drawSnakeStart();
-	if (xAxis > x && xAxis < x+foodWidth && yAxis >y && yAxis <y+foodHeight){
+	if (bodyX > x && bodyX > x+ foodWidth || bodyY > y && bodyY > y+ foodHeight){
 		foodWidth = 0;
 		randomFood();
 		foodWidth = 21;
-		chgCoor();
 }
 }
 
@@ -118,35 +112,37 @@ play.clearRect(0, 0, canvas.width, canvas.height);
 
 drawFood();
 collide();
+drawBody();
 
-
-if (xAxis + smallValuex < ballRadius || xAxis + smallValuex > canvas.width-ballRadius){
+if (xAxis + smallValuex <width || xAxis + smallValuex > canvas.width-width){
 	alert("Game Over");
 }
-if (yAxis + smallValuey < ballRadius || yAxis + smallValuey > canvas.height-ballRadius){
+if (yAxis + smallValuey < height || yAxis + smallValuey > canvas.height-height){
 	alert("Game Over")
 }
 if(rightPressed){
-	xAxis +=3;
-	xxAxis +=3;
+	bodyX += 3;
 }
 
 else if(leftPressed){
-	xAxis -=3;
-	xxAxis -=3;
+	bodyX -= 3;
 }
 
 else if(upPressed){
-	yAxis -= 3;
-	yyAxis -=3;
+	bodyY -= 3;
 }
 else if(downPressed){
-	yAxis += 3;
-	yyAxis += 3;
+	bodyY += 3;
 }
+
+let newHead = {
+	x: bodyX,
+	y: bodyY
+}
+
+body.unshift(newHead);
 }
 
 //function called every ms forever
-setInterval(draw, 10);
-
+let stopGame = setInterval(draw, 10);
 
