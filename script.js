@@ -87,7 +87,6 @@ function drawBody(){
 }
 
 
-
 //when snake collides with food, food disappears
 function collide(){
 	if (bodyX > x && bodyX > x+ foodWidth || bodyY > y && bodyY > y+ foodHeight){
